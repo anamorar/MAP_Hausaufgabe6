@@ -27,7 +27,6 @@ public class RegistrationSystem {
         this.courseRepository = courseRepository;
     }
 
-
     public StudentJdbcRepository getStudentRepository() {
         return studentRepository;
     }

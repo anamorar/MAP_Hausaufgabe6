@@ -23,11 +23,14 @@ public class StudentJdbcRepository implements ICrudRepository<Student> {
         this.connection = DriverManager.getConnection(connectionUrl, user, password);
     }
 
-    public StudentJdbcRepository() throws SQLException {
+    public StudentJdbcRepository() {
     }
 
     @Override
-    public Student findOne(Long id) throws SQLException {
+    public Student findOne(Long id) throws SQLException, NullException {
+        if (id == null) {
+            throw new NullException("Null id!");
+        }
         String findOneQuery = "SELECT studentId, firstName, lastName, totalCredits FROM Students WHERE studentId = '" + id + "'";
         String studentsEnrolledQuery = "SELECT C.courseId, C.name, C.credits, C.maxEnrollment, T.teacherId, T.firstName, T.lastName " +
                 "FROM Enrolled E INNER JOIN Courses C ON C.courseId = E.courseId " +
